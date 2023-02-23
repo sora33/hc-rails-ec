@@ -1,0 +1,42 @@
+
+<section class="py-5">
+  <div class="container px-4 px-lg-5 mt-5">
+
+  <% if product.errors.present? %>
+    <ul id ="error_explanation">
+      <% product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+    <% end %>
+
+    <%= form_with(model: product, local: true) do |f| %>
+      <div class="form-group">
+        <%= f.label :name, '名前' %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :price, '価格' %>
+        <%= f.text_field :price, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :description, '詳細' %>
+        <%= f.text_area :description, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :images, '写真' %>
+        <%= f.file_field :images, multiple: true, class: 'form-control' %>
+      </div>
+
+      <% if product.images.present? %>
+        <p>現在登録されている画像（削除するものはチェックしてください）</p>
+        <% product.images.each do |image| %>
+          <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
+          <%= image_tag image, size:"100x100" %> <br>
+        <% end %>
+      <% end %>
+
+      <%= f.submit nil, class: 'btn btn-primary mt-5' %>
+    <% end %>
+  </div>
+</section>
