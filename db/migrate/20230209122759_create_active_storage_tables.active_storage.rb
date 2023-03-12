@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This migration comes from active_storage (originally 20170806125915)
-# rubocop:disable all
+# rubocop:disable
 
 class CreateActiveStorageTables < ActiveRecord::Migration[5.2]
   def change
@@ -62,4 +62,4 @@ class CreateActiveStorageTables < ActiveRecord::Migration[5.2]
   end
 end
 
-# rubocop:enable all
+# rubocop:enable
