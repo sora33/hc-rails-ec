@@ -6,3 +6,15 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+
+
+10.times do |n|
+  product_a = Product.new(
+    name: "テスト商品名#{n + 1}",
+    description: "とってもおいしいです",
+    price: rand(500..1500),
+  )
+  product_a.image.attach(io: File.open(Rails.root.join('app/assets/images/sora.jpg')), filename: 'sora.jpg')
+  product_a.save!
+end
