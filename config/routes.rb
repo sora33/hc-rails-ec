@@ -2,9 +2,5 @@
 
 Rails.application.routes.draw do
   root to: 'products#index'
-  resources :products do
-    collection do
-      get 'random'
-    end
-  end
+  resources :products, only: %i[index show]
 end

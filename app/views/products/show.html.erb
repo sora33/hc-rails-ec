@@ -1,22 +1,17 @@
- <!-- Product section-->
-<%= link_to '編集', edit_product_path, class: 'btn btn-primary mr-3' %>
-<%= link_to '削除', @product, method: :delete, data: {comfirm: "商品#{@product.name}を削除します、よろしいですか？"}, class: 'btn btn-danger' %>
-
-
+<!-- Product section-->
 <section class="py-5">
   <div class="container px-4 px-lg-5 mt-5">
+    <%= link_to '戻る', root_path, class: 'btn btn-dark' %>
     <section class="py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6">
-                <% if !@product.images.present? %>
+                <% if @product.image.present? %>
+                  <%= image_tag(@product.image_as_thumbnail, class: "card-img-top mb-5 mb-md-0") %>
+                <% else %>
                   <img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." />
                 <% end %>
-                <% @product.images.each do |image| %>
-                  <%= image_tag(image.variant(resize_to_fill: [600, 700]).processed, class: "card-img-top mb-5 mb-md-0") %>
-                <% end %>
                 </div>
-
                 <div class="col-md-6">
                     <h1 class="display-5 fw-bolder"><%= @product.name %></h1>
                     <div class="fs-5 mb-5">
