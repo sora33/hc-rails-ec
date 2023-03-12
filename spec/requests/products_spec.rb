@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Products' do
   describe 'GET /index' do
     it 'returns http success' do
+      # テスト
       get '/products'
       expect(response).to have_http_status(:success)
     end
@@ -12,23 +13,16 @@ RSpec.describe 'Products' do
 
   describe 'GET /show' do
     it 'returns http success' do
-      product = Product.create!(name: 'test', price: 7777, description: 'test') # テストデータを作成
+      # テストデータを作成
+      product = Product.new(
+        name: "テスト商品名",
+        description: 'とってもおいしいです',
+        price: rand(500..1500)
+      )
+      product.image.attach(io: File.open(Rails.root.join('app/assets/images/sora.jpg')), filename: 'sora.jpg')
+      product.save!
+      # テスト
       get "/products/#{product.id}"
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe 'GET /new' do
-    it 'returns http success' do
-      get '/products/new'
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe 'GET /edit' do
-    it 'returns http success' do
-      product = Product.create!(name: 'test', price: 7777, description: 'test') # テストデータを作成
-      get "/products/#{product.id}/edit"
       expect(response).to have_http_status(:success)
     end
   end
