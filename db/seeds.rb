@@ -14,6 +14,6 @@
     description: 'とってもおいしいです',
     price: rand(500..1500)
   )
-  product_a.image.attach(io: File.open(Rails.root.join('app/assets/images/sora.jpg')), filename: 'sora.jpg')
+  # product_a.image.attach(io: File.open(Rails.root.join('app/assets/images/sora.jpg')), filename: 'sora.jpg')
   product_a.save!
 end
