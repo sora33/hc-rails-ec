@@ -15,10 +15,10 @@
 
       <%# Flash通知 %>
       <% flash.each do |message_type, message| %>
-      <span style="margin-left: 1rem"><%= message %></span>
+      <span style="margin-right: 1rem"><%= message %></span>
       <% end %>
     </div>
       <%# デバッグ用 %>
-      <%= link_to @cart.id, cart_path(), class: 'text-dark text-decoration-none fw-bolder' %>
+      <%= link_to '購入明細一覧', orders_path %>
   </div>
 </nav>

@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   resources :products, only: %i[index show]
   resource :cart, only:  %i[show]
   resources :cart_items, only: %i[create destroy]
+  resources :orders, only: %i[index create show]
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end
