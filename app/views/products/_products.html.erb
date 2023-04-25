@@ -2,29 +2,31 @@
 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
   <% products.each do |product| %>
     <div class="col mb-5">
-        <div class="card h-100">
-          <%= link_to(product_path(product), class: 'text-dark text-decoration-none') do %>
-            <!-- Product image-->
-            <% if product.image.attached? %>
-              <%= image_tag(product.image_as_thumbnails, class: "card-img-top") %>
-            <% else %>
-              <%= image_tag("https://dummyimage.com/450x300/dee2e6/6c757d.jpg", class: "card-img-top") %>
-            <% end %>
-            <!-- Product details-->
-            <div class="card-body p-4">
-                <div class="text-center">
-                    <!-- Product name-->
-                    <h5 class="fw-bolder"><%= product.name %></h5>
-                    <!-- Product price-->
-                    <p><%= number_to_currency(product.price) %></p>
-                </div>
-            </div>
-            <!-- Product actions-->
-            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">カートに追加</a></div>
-            </div>
+      <div class="card h-100">
+        <!-- Product image-->
+        <%= link_to product_path(product), class: 'text-dark text-decoration-none' do %>
+          <% if product.image.attached? %>
+            <%= image_tag(product.image_as_thumbnails, class: "card-img-top") %>
+          <% else %>
+            <%= image_tag("https://dummyimage.com/450x300/dee2e6/6c757d.jpg", class: "card-img-top") %>
           <% end %>
+        <% end %>
+        <!-- Product details-->
+        <div class="card-body p-4">
+          <div class="text-center">
+            <!-- Product name-->
+            <%= link_to product.name, product_path(product), class: 'text-dark text-decoration-none fw-bolder' %>
+            <!-- Product price-->
+            <p><%= number_to_currency(product.price) %></p>
+          </div>
         </div>
+        <!-- Product actions-->
+        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+          <div class="text-center">
+            <%= button_to "カートに追加", cart_items_path(product_id: product.id), method: :post, class: "btn btn-outline-dark mt-auto w-100" %>
+          </div>
+        </div>
+      </div>
     </div>
   <% end %>
 </div>

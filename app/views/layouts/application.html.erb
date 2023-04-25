@@ -10,7 +10,9 @@
   </head>
   <body>
     <%= render partial: 'layouts/header' %>
-    <%= yield %>
+    <main  class="container px-4 px-lg-5 mt-5">
+      <%= yield %>
+    </main>
     <%= render partial: 'layouts/footer' %>
   </body>
 </html>

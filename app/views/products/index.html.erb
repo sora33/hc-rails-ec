@@ -1,16 +1,14 @@
 <!-- Header-->
-<header class="bg-dark py-5">
+<div class="bg-dark py-5" style="margin: -2.5rem calc(50% - 50vw) 3rem; width: 100vw;">
   <div class="container px-4 px-lg-5 my-5">
     <div class="text-center text-white">
       <h1 class="display-4 fw-bolder">RailsでECサイトを作成した</h1>
       <p class="lead fw-normal text-white-50 mb-0">いろんな商品がありますよ</p>
     </div>
   </div>
-</header>
+</div>
 
-<!-- Section-->
-<section class="py-5">
-  <div class="container px-4 px-lg-5 mt-5">
-      <%= render partial: 'products', locals: {products: @products} %>
-  </div>
-</section>
+
+<!-- 商品一覧-->
+<%= render partial: 'products', locals: {products: @products} %>
+  
