@@ -15,6 +15,6 @@
     price: rand(500..1500)
   )
   # product_a.image.attach(io: File.open(Rails.root.join('app/assets/images/sora.jpg')), filename: 'sora.jpg')
-  image_path = Rails.root.join("app/assets/images/sora.jpg")
-  product.image.attach(io: File.open(image_path), filename: "sora.jpg", content_type: 'image/jpg')
+  image_path = Rails.root.join('app/assets/images/sora.jpg')
+  product.image.attach(io: File.open(image_path), filename: 'sora.jpg', content_type: 'image/jpg')
 end
