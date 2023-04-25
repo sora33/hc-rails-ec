@@ -28,3 +28,17 @@ docker compose up
 ```
 
 http://localhost:3000
+
+
+
+
+テスト実行
+docker compose run web bundle exec rspec spec/requests/
+rubocop実行
+docker compose run web rubocop -A
+
+Herokuにデプロイ
+heroku login
+git push heroku carts:main       
+（carts：gitのブランチ、main：Herokuのブランチ？）
+

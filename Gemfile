@@ -62,6 +62,8 @@ end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem 'dotenv-rails' # 環境変数を設定する。
+  gem 'letter_opener_web' # 開発環境のメール
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
