@@ -19,7 +19,7 @@
             <p><%= button_to "削除", cart_item_path(item), method: :delete,
             class: "btn btn-outline-danger btn-sm", style: "font-size:.8rem" %></p>
           </div>
-          <span class="text-body-secondary"><%= item_total %>円</span>
+          <span class="text-body-secondary"><%= number_to_currency(item_total) %></span>
         </li>
       <% end %>
       <%# 割引コード %>
@@ -32,7 +32,7 @@
       </li> %>
       <li class="list-group-item d-flex justify-content-between">
         <span>合計</span>
-        <strong><%= "#{total_price}円" %></strong>
+        <strong><%= "#{number_to_currency(total_price)}" %></strong>
       </li>
     </ul>
 
