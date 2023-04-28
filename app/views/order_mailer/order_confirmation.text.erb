@@ -16,12 +16,12 @@
 
 注文内容:
 <% total_price = 0 %>
-<% @order.cart.cart_items.each do |item| %>
-<% item_total = item.product.price * item.quantity %>
+<% @order.order_items.each do |item| %>
+<% item_total = item.price * item.quantity %>
 <% total_price += item_total %>
-商品名: <%= item.product.name %>
+商品名: <%= item.product_name %>
 数量: <%= item.quantity %>
-単価: <%= item.product.price %> 円
+単価: <%= item.price %> 円
 小計: <%= item_total %> 円
 <% end %>
 

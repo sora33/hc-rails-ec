@@ -18,18 +18,26 @@
         <th>商品名</th>
         <th>価格</th>
         <th>数量</th>
+        <th>小計</th>
       </tr>
     </thead>
     <tbody>
-      <% @order.cart_items.each do |item| %>
+      <% total_price = 0 %>
+      <% @order.order_items.each do |item| %>
+        <% total_quantity = 0 %>
+        <% subtotal_price = item.price * item.quantity %>
+        <% total_quantity += item.quantity %>
+        <% total_price += subtotal_price %>
         <tr>
-          <td><%= item.product.name %></td>
-          <td><%= item.product.price %></td>
+          <td><%= item.product_name %></td>
+          <td><%= number_to_currency(item.price) %></td>
           <td><%= item.quantity %></td>
+          <td><%= number_to_currency(subtotal_price) %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
+  <p><strong>合計金額：</strong><%= number_to_currency(total_price) %></p>
 
-  <%= link_to '購入明細一覧に戻る', orders_path, class: 'btn btn-primary' %>
+  <%= link_to '購入明細一覧に戻る', orders_path, class: 'btn btn-primary mt-5' %>
 </div>
