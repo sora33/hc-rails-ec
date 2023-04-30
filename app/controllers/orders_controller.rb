@@ -11,7 +11,9 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     Order.transaction do # start トランザクション処理
       if @cart.cart_items.present?
-        create_order_and_send_confirmation(@order)
+        @order.create_order_with_items(@cart)
+        session[:cart_id] = nil
+        redirect_to root_path, notice: 'ご購入ありがとうございました。'
       else
         redirect_to cart_path, notice: '商品をカートに入れてください。'
       end
@@ -36,28 +38,5 @@ class OrdersController < ApplicationController
     authenticate_or_request_with_http_basic do |username, password|
       username == 'admin' && password == 'pw'
     end
-  end
-
-  # カート情報から注文商品情報（order_items_from_cart）を作成
-  def order_items_from_cart(cart)
-    cart.cart_items.map do |cart_item|
-      OrderItem.new(
-        product_name: cart_item.product.name,
-        price: cart_item.product.price,
-        quantity: cart_item.quantity
-      )
-    end
-  end
-
-  # オーダー作成とメール送信をトランザクション処理にする
-  def create_order_and_send_confirmation(order)
-    Order.transaction do
-      order.order_items = order_items_from_cart(@cart)
-      order.save!
-      session[:cart_id] = nil
-      set_cart
-      OrderMailer.order_confirmation(order).deliver_now
-    end
-    redirect_to root_path, notice: 'ご購入ありがとうございました。'
   end
 end

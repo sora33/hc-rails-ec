@@ -6,6 +6,7 @@ Style/Documentation:
 Metrics/BlockLength: #ファイルの記述量が長いのを無視
   Exclude:
     - 'config/environments/*.rb'
-Metrics/MethodLength: #メソッドが長いのを無視
+Metrics/MethodLength: #１メソッドの文字数
+  Max: 20
   Exclude:
-    - "db/migrate/*"
+    - "db/migrate/*.rb"
