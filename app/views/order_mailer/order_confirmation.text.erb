@@ -1,0 +1,35 @@
+注文の確認メール
+
+こんにちは、<%= @order.family_name %> <%= @order.given_name %> 様、
+
+ご注文ありがとうございます。以下の内容でお届け予定です。
+
+注文番号: <%= @order.id %>
+注文日時: <%= @order.created_at.strftime("%Y年%m月%d日 %H:%M") %>
+
+お届け先情報:
+氏名: <%= @order.family_name %> <%= @order.given_name %>
+郵便番号: <%= @order.postal_code %>
+住所1: <%= @order.address1 %>
+住所2: <%= @order.address2 %>
+メールアドレス: <%= @order.email %>
+
+注文内容:
+<% total_price = 0 %>
+<% @order.order_items.each do |item| %>
+<% item_total = item.price * item.quantity %>
+<% total_price += item_total %>
+商品名: <%= item.product_name %>
+数量: <%= item.quantity %>
+単価: <%= item.price %> 円
+小計: <%= item_total %> 円
+<% end %>
+
+合計金額: <%= total_price %> 円
+
+ご不明な点がございましたら、お気軽にお問い合わせください。
+それでは、商品のお届けまで今しばらくお待ちください。
+
+よろしくお願いいたします。
+
+Rails EC サイト サポート

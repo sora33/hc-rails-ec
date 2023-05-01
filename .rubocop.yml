@@ -3,3 +3,10 @@ require:
   - rubocop-rspec
 Style/Documentation:
   Enabled: false
+Metrics/BlockLength: #ファイルの記述量が長いのを無視
+  Exclude:
+    - 'config/environments/*.rb'
+Metrics/MethodLength: #１メソッドの文字数
+  Max: 20
+  Exclude:
+    - "db/migrate/*.rb"
