@@ -37,7 +37,11 @@
       <% end %>
     </tbody>
   </table>
-  <p><strong>合計金額：</strong><%= number_to_currency(total_price) %></p>
+  <% if @order.discount > 0 %>
+    <p><strong>割引額：</strong><%= number_to_currency(@order.discount) %></p>
+  <% end %>
+  <p><strong>合計金額：</strong><%= number_to_currency(total_price - @order.discount) %></p>
+
 
   <%= link_to '購入明細一覧に戻る', orders_path, class: 'btn btn-primary mt-5' %>
 </div>

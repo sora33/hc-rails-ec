@@ -9,6 +9,10 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
+    if promo_code_already_used?
+      redirect_to cart_path, alert: '選択されたプロモーションコードは既に使用されています。'
+      return
+    end
     Order.transaction do # start トランザクション処理
       if @cart.cart_items.present?
         @order.create_order_with_items(@cart)
@@ -38,5 +42,10 @@ class OrdersController < ApplicationController
     authenticate_or_request_with_http_basic do |username, password|
       username == 'admin' && password == 'pw'
     end
+  end
+
+  def promo_code_already_used?
+    promo_code = @cart.promotion_code
+    promo_code.present? && promo_code.is_used
   end
 end

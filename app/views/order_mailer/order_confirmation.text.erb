@@ -25,7 +25,11 @@
 小計: <%= item_total %> 円
 <% end %>
 
-合計金額: <%= total_price %> 円
+<% if @order.discount > 0 %>
+割引額: <%= @order.discount %> 円
+<% end %>
+
+合計金額: <%= total_price - @order.discount %> 円
 
 ご不明な点がございましたら、お気軽にお問い合わせください。
 それでは、商品のお届けまで今しばらくお待ちください。
