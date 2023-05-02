@@ -9,7 +9,8 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    if promo_code_already_used?
+    promo_code = @cart.promotion_code
+    if promo_code.present? && promo_code.is_used
       redirect_to cart_path, alert: '選択されたプロモーションコードは既に使用されています。'
       return
     end
@@ -36,22 +37,13 @@ class OrdersController < ApplicationController
     end
   end
 
-  # プロモーションコードが既に使用されているかどうかを判定するメソッド
-  def promo_code_already_used?
-    promo_code = @cart.promotion_code
-    promo_code.present? && promo_code.is_used
-  end
-
   # オーダー処理をメソッドに切り出す
   def process_order
-    Order.transaction do # start トランザクション処理
-      if @cart.cart_items.present?
-        @order.create_order_with_items(@cart)
-        session[:cart_id] = nil
-        redirect_to root_path, notice: 'ご購入ありがとうございました。'
-      else
-        redirect_to cart_path, notice: '商品をカートに入れてください。'
-      end
+    if @order.create_order_with_items(@cart)
+      session[:cart_id] = nil
+      redirect_to root_path, notice: 'ご購入ありがとうございました。'
+    else
+      redirect_to cart_path, notice: '商品をカートに入れてください。'
     end
   end
 end
