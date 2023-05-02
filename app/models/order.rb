@@ -27,5 +27,4 @@ class Order < ApplicationRecord
     self.discount = cart.promotion_code&.discount || 0
     cart.promotion_code&.update(is_used: true)
   end
-
 end
