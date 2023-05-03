@@ -9,15 +9,12 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    Order.transaction do # start トランザクション処理
-      if @cart.cart_items.present?
-        @order.create_order_with_items(@cart)
-        session[:cart_id] = nil
-        redirect_to root_path, notice: 'ご購入ありがとうございました。'
-      else
-        redirect_to cart_path, notice: '商品をカートに入れてください。'
-      end
+    promo_code = @cart.promotion_code
+    if promo_code.present? && promo_code.is_used
+      redirect_to cart_path, alert: '選択されたプロモーションコードは既に使用されています。'
+      return
     end
+    process_order
   rescue ActiveRecord::RecordInvalid => e
     redirect_to cart_path, notice: e.message
   end
@@ -37,6 +34,16 @@ class OrdersController < ApplicationController
   def authenticate
     authenticate_or_request_with_http_basic do |username, password|
       username == 'admin' && password == 'pw'
+    end
+  end
+
+  # オーダー処理をメソッドに切り出す
+  def process_order
+    if @order.create_order_with_items(@cart)
+      session[:cart_id] = nil
+      redirect_to root_path, notice: 'ご購入ありがとうございました。'
+    else
+      redirect_to cart_path, notice: '商品をカートに入れてください。'
     end
   end
 end

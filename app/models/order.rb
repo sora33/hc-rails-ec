@@ -16,8 +16,20 @@ class Order < ApplicationRecord
 
   # オーダー作成とメール送信
   def create_order_with_items(cart)
-    self.order_items = Order.order_items_from_cart(cart)
-    save!
-    OrderMailer.order_confirmation(self).deliver_now
+    return false if cart.cart_items.blank?
+
+    Order.transaction do
+      self.order_items = Order.order_items_from_cart(cart)
+      use_promotion_code(cart)
+      save!
+      OrderMailer.order_confirmation(self).deliver_now
+    end
+    true
+  end
+
+  # プロモーションコードの使用
+  def use_promotion_code(cart)
+    self.discount = cart.promotion_code&.discount || 0
+    cart.promotion_code&.update(is_used: true)
   end
 end
